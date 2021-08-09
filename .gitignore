@@ -111,14 +111,13 @@ ENV/
 .mypy_cache/
 
 # data folder
-data/
+#data/
 
 # datafiles
 .xml
 .pkl
 
 # misc
-.idea/
 .iml
 .dropbox
 
@@ -154,3 +153,16 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# -----------------------------------------------------------------------------------
+# ---------------------------- MANUALLY ADDED ---------------------------------------
+# -----------------------------------------------------------------------------------
+
+
+# unwanted files
+**/*.png
+**/*.jpg
+**/*.jpeg
+
+# exlcluded files
+plotting_scripts/plots

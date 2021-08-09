@@ -1,4 +1,17 @@
 tensorflow
+tensorflow-addons
 tensorflow-probability
 numpy
 matplotlib
+tqdm
+imageio
+pygifsicle
+pandas
+
+ray[tune]
+ray[default]
+
+mujoco-py==2.0.2.8
+gym
+scipy
+Pillow
