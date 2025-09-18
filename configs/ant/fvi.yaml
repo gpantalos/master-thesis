@@ -1,0 +1,30 @@
+config:
+  activation: relu
+  bandwidth: 4.4e-03
+  batch_size: 16
+  coeff_cross_entropy: 2.6e-03
+  coeff_entropy: 2.0e-03
+  coeff_prior: 1.8e+00
+  depth: 2
+  early_stopping_metric: val_nll
+  early_stopping_min_delta: 0.0e+00
+  early_stopping_mode: min
+  early_stopping_patience: 1000
+  enable_early_stopping: true
+  learning_rate: 9.7e-04
+  likelihood_prior_mean: 3.8e-04
+  likelihood_prior_std: 9.0e-03
+  n_iter: 10000
+  n_particles: 15
+  nn_prior_std: 3.5e+00
+  noise_std: 1.3e-04
+  prior_noise_std: 2.9e-03
+  ssge_bandwidth: 1.1e+00
+  ssge_eta: 7.9e-03
+  ssge_n_eigen: 12
+  val_fraction: 1.0e-01
+  weight_decay: 4.6e-06
+  width: 64
+metrics:
+  test_nll: -5.3e-01
+  test_rmse: 7.6e-01

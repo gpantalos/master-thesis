@@ -1,0 +1,22 @@
+config:
+  activation: relu
+  bandwidth: 1.4e-02
+  batch_size: 32
+  depth: 4
+  early_stopping_metric: val_nll
+  early_stopping_min_delta: 0.0e+00
+  early_stopping_mode: min
+  early_stopping_patience: 1000
+  enable_early_stopping: true
+  learning_rate: 2.5e-04
+  likelihood_prior_mean: 3.3e-03
+  likelihood_prior_std: 6.1e-02
+  n_iter: 10000
+  nn_prior_std: 3.6e+00
+  noise_std: 7.7e-03
+  val_fraction: 1.0e-01
+  weight_decay: 6.8e-06
+  width: 128
+metrics:
+  test_nll: 2.7e+00
+  test_rmse: 8.9e-01

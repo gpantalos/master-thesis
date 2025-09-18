@@ -1,0 +1,23 @@
+config:
+  activation: tanh
+  bandwidth: 6.7e-02
+  batch_size: 16
+  depth: 2
+  early_stopping_metric: val_nll
+  early_stopping_min_delta: 0.0e+00
+  early_stopping_mode: min
+  early_stopping_patience: 1000
+  enable_early_stopping: true
+  learning_rate: 7.0e-04
+  likelihood_prior_mean: 1.1e-04
+  likelihood_prior_std: 1.9e-02
+  n_iter: 10000
+  n_particles: 30
+  nn_prior_std: 3.7e+00
+  noise_std: 1.7e-03
+  val_fraction: 1.0e-01
+  weight_decay: 1.1e-06
+  width: 64
+metrics:
+  test_nll: -7.4e-01
+  test_rmse: 7.5e-01

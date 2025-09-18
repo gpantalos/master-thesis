@@ -1,0 +1,31 @@
+[project]
+name = "fpbnn"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "tqdm",
+    "gymnasium[mujoco]",
+    "imageio",
+    "ray[tune,air]",
+    "tensorflow-probability[tf]",
+    "tensorflow==2.18.*; sys_platform == 'darwin'",
+    "tensorflow[and-cuda]==2.18.*; sys_platform == 'linux'",
+    "pydantic",
+    "wandb",
+    "pillow",
+]
+
+[project.scripts]
+fpbnn = "fpbnn.cli:main"
+
+[dependency-groups]
+dev = ["jupyter", "ruff"]
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 120

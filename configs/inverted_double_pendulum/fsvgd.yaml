@@ -1,0 +1,30 @@
+config:
+  activation: tanh
+  bandwidth: 2.2e-02
+  batch_size: 4
+  coeff_cross_entropy: 8.0e-02
+  coeff_entropy: 3.8e-02
+  coeff_prior: 3.3e+00
+  depth: 4
+  early_stopping_metric: val_nll
+  early_stopping_min_delta: 0.0e+00
+  early_stopping_mode: min
+  early_stopping_patience: 1000
+  enable_early_stopping: true
+  learning_rate: 7.8e-04
+  likelihood_prior_mean: 6.2e-02
+  likelihood_prior_std: 1.7e-03
+  n_iter: 10000
+  n_particles: 20
+  nn_prior_std: 5.3e-01
+  noise_std: 5.7e-03
+  prior_noise_std: 6.4e-04
+  ssge_bandwidth: 2.5e+00
+  ssge_eta: 2.7e-02
+  ssge_n_eigen: 6
+  val_fraction: 1.0e-01
+  weight_decay: 6.7e-07
+  width: 16
+metrics:
+  test_nll: 1.6e+00
+  test_rmse: 1.4e-01
