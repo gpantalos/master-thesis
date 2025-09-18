@@ -1,50 +1,79 @@
-# Functional Priors for Bayesian Neural Networks
+# Function Space Transfer of Probability Distributions
 
-This is a repository for training Bayesian Neural Networks (BNNs) using the
-data-generating process in function space.
+This work studies Bayesian neural networks with priors defined in function space using a proxy for the data-generating process (for example a simulator or a non-parametric estimate). The proxy induces a stochastic process that assigns higher prior mass to functions that reproduce known input–output behaviour, so regularisation acts where predictions live rather than through weight assumptions. This transfers task structure such as smoothness, invariances, and characteristic scales into the posterior, with the aim of improving calibration, extrapolation, and data efficiency when weight-space priors are misspecified.
 
-## Dependencies
+> Work done as part of my Master's thesis at the [Learning and Adaptive Systems (LAS) Group](https://las.inf.ethz.ch/) at ETH Zurich. Supervisors: [Jonas Rothfuss](https://scholar.google.com/citations?user=EfLpX8QAAAAJ), [Andreas Krause](https://scholar.google.com/citations?user=eDHv58AAAAAJ). Full report: [`report.pdf`](report.pdf)
 
-To install the minimal dependencies needed to use the algorithms, run in the
-main directory of this repository
+## Quick Start
 
-```commandline
-pip install .
+Install dependencies with [uv](https://docs.astral.sh/uv/).
+
+```bash
+uv sync
 ```
 
-Alternatively, you can install the required packages using the following
-command:
+## CLI
 
-```commandline
-pip install -r requirements.txt
+### Train
+
+```bash
+# Train specific model-environment combination
+uv run fpbnn --model=fvi --env=hopper
+
+# Train all models on an environment
+uv run fpbnn --env=hopper
+
+# Train multiple combinations
+uv run fpbnn --model=fvi,svgd --env=densities,swimmer
 ```
 
-## Quick start
+### Tune
 
-The following code snippet presents the core functionality of this repo
-
-```python
-from fpbnn.envs.sinusoids import Sinusoids
-from fpbnn.models import FVI
-
-# define a data-generating process
-data_generator = Sinusoids()
-
-# sample dataset
-train_data, test_data = data_generator.sample_train_test(10, 100)
-
-# initialize model
-nn = FVI(train_data=train_data,
-         functional_prior=data_generator,
-         experiment=data_generator.name)
-
-# fit to training data
-nn.fit(plot=True, show=True, test_data=test_data)
+```bash
+uv run fpbnn --model=fvi --env=hopper --tune --num-samples=20
 ```
 
+## Models & Environments
 
+| Environment                       | MLP                                                  | VI                                                 | SVGD                                                   | FVI                                                  | FSVGD                                                    |
+| --------------------------------- | ---------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------- | -------------------------------------------------------- |
+| **Sinusoids (1D)**                | ![MLP](assets/gifs/sinusoids-mlp.gif)                | ![VI](assets/gifs/sinusoids-vi.gif)                | ![SVGD](assets/gifs/sinusoids-svgd.gif)                | ![FVI](assets/gifs/sinusoids-fvi.gif)                | ![FSVGD](assets/gifs/sinusoids-fsvgd.gif)                |
+| **Densities (1D)**                | ![MLP](assets/gifs/densities-mlp.gif)                | ![VI](assets/gifs/densities-vi.gif)                | ![SVGD](assets/gifs/densities-svgd.gif)                | ![FVI](assets/gifs/densities-fvi.gif)                | ![FSVGD](assets/gifs/densities-fsvgd.gif)                |
+| **Inverted Pendulum (4D)**        | ![MLP](assets/gifs/inverted_pendulum-mlp.gif)        | ![VI](assets/gifs/inverted_pendulum-vi.gif)        | ![SVGD](assets/gifs/inverted_pendulum-svgd.gif)        | ![FVI](assets/gifs/inverted_pendulum-fvi.gif)        | ![FSVGD](assets/gifs/inverted_pendulum-fsvgd.gif)        |
+| **Swimmer (8D)**                  | ![MLP](assets/gifs/swimmer-mlp.gif)                  | ![VI](assets/gifs/swimmer-vi.gif)                  | ![SVGD](assets/gifs/swimmer-svgd.gif)                  | ![FVI](assets/gifs/swimmer-fvi.gif)                  | ![FSVGD](assets/gifs/swimmer-fsvgd.gif)                  |
+| **Inverted Double Pendulum (9D)** | ![MLP](assets/gifs/inverted_double_pendulum-mlp.gif) | ![VI](assets/gifs/inverted_double_pendulum-vi.gif) | ![SVGD](assets/gifs/inverted_double_pendulum-svgd.gif) | ![FVI](assets/gifs/inverted_double_pendulum-fvi.gif) | ![FSVGD](assets/gifs/inverted_double_pendulum-fsvgd.gif) |
+| **Reacher (10D)**                 | ![MLP](assets/gifs/reacher-mlp.gif)                  | ![VI](assets/gifs/reacher-vi.gif)                  | ![SVGD](assets/gifs/reacher-svgd.gif)                  | ![FVI](assets/gifs/reacher-fvi.gif)                  | ![FSVGD](assets/gifs/reacher-fsvgd.gif)                  |
+| **Hopper (11D)**                  | ![MLP](assets/gifs/hopper-mlp.gif)                   | ![VI](assets/gifs/hopper-vi.gif)                   | ![SVGD](assets/gifs/hopper-svgd.gif)                   | ![FVI](assets/gifs/hopper-fvi.gif)                   | ![FSVGD](assets/gifs/hopper-fsvgd.gif)                   |
+| **Half Cheetah (17D)**            | ![MLP](assets/gifs/half_cheetah-mlp.gif)             | ![VI](assets/gifs/half_cheetah-vi.gif)             | ![SVGD](assets/gifs/half_cheetah-svgd.gif)             | ![FVI](assets/gifs/half_cheetah-fvi.gif)             | ![FSVGD](assets/gifs/half_cheetah-fsvgd.gif)             |
+| **Ant (105D)**                    | ![MLP](assets/gifs/ant-mlp.gif)                      | ![VI](assets/gifs/ant-vi.gif)                      | ![SVGD](assets/gifs/ant-svgd.gif)                      | ![FVI](assets/gifs/ant-fvi.gif)                      | ![FSVGD](assets/gifs/ant-fsvgd.gif)                      |
 
+### Environment Details
 
+- **Toy Problems**: Curve fitting with calibrated uncertainty.
+- **Control Tasks**: Forward dynamics ($s_{t+1} | s_t, a_t$) learning from MuJoCo simulations.
 
+## Related Work
 
+- Sun, S., Zhang, G., Shi, J., & Grosse, R. (2019). [Functional variational Bayesian neural networks.](https://arxiv.org/abs/1903.05779)
+- Wang, D., Zeng, Z., & Liu, Q. (2019). [Stein variational gradient descent with matrix-valued kernels.](https://arxiv.org/abs/1902.09754)
+- Liu, Q., & Wang, D. (2016). [Stein variational gradient descent: A general purpose bayesian inference algorithm.](https://arxiv.org/abs/1608.04471)
+- Blundell, C., Cornebise, J., Kavukcuoglu, K., & Wierstra, D. (2015). [Weight uncertainty in neural networks.](https://arxiv.org/abs/1505.05424)
 
+## Citation
+
+If you use this work in your research, please cite:
+
+```bibtex
+@mastersthesis{pantalos2021function,
+  title   = {Function Space Transfer of Probability Distributions},
+  author  = {Pantalos, Georgios},
+  school  = {ETH Zurich},
+  address = {Zurich, Switzerland},
+  year    = {2021},
+  type    = {Master's thesis}
+}
+```
+
+## License
+
+MIT.

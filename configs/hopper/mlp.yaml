@@ -1,0 +1,22 @@
+config:
+  activation: elu
+  bandwidth: 5.5e-03
+  batch_size: 32
+  depth: 4
+  early_stopping_metric: val_nll
+  early_stopping_min_delta: 0.0e+00
+  early_stopping_mode: min
+  early_stopping_patience: 1000
+  enable_early_stopping: true
+  learning_rate: 2.2e-03
+  likelihood_prior_mean: 2.0e-02
+  likelihood_prior_std: 3.6e-04
+  n_iter: 10000
+  nn_prior_std: 1.3e+00
+  noise_std: 1.7e-02
+  val_fraction: 1.0e-01
+  weight_decay: 2.3e-06
+  width: 32
+metrics:
+  test_nll: -1.8e+00
+  test_rmse: 8.0e-02
